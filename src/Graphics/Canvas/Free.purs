@@ -21,6 +21,8 @@ module Graphics.Canvas.Free
   , lineTo
   , moveTo
   , closePath
+  , quadraticCurveTo
+  , bezierCurveTo
 
   , arc
   , rect
@@ -80,6 +82,8 @@ data GraphicsF more
   | Clip                 more
   | LineTo               Number Number more
   | MoveTo               Number Number more
+  | QuadraticCurveTo     Canvas.QuadraticCurve more
+  | BezierCurveTo        Canvas.BezierCurve more
   | ClosePath            more
   | Arc                  Canvas.Arc       more
   | Rect                 Canvas.Rectangle more
@@ -160,6 +164,12 @@ lineTo x y = liftGraphics $ LineTo x y unit
 
 moveTo :: forall m. Monad m => Number -> Number -> GraphicsT m Unit
 moveTo x y = liftGraphics $ MoveTo x y unit
+
+quadraticCurveTo :: forall m. Monad m => Canvas.QuadraticCurve -> GraphicsT m Unit
+quadraticCurveTo qc = liftGraphics $ QuadraticCurveTo qc unit
+
+bezierCurveTo :: forall m. Monad m => Canvas.BezierCurve -> GraphicsT m Unit
+bezierCurveTo bc = liftGraphics $ BezierCurveTo bc unit
 
 closePath :: forall m. Monad m => GraphicsT m Unit
 closePath = liftGraphics $ ClosePath unit
@@ -284,6 +294,10 @@ interp ctx (LineTo x y a) =
   const a <$> Canvas.lineTo ctx x y
 interp ctx (MoveTo x y a) =
   const a <$> Canvas.moveTo ctx x y
+interp ctx (QuadraticCurveTo qc a) =
+  const a <$> Canvas.quadraticCurveTo qc ctx
+interp ctx (BezierCurveTo bc a) =
+  const a <$> Canvas.bezierCurveTo bc ctx
 interp ctx (ClosePath a) =
   const a <$> Canvas.closePath ctx
 interp ctx (Arc arc_ a) =

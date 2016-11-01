@@ -6,6 +6,7 @@ import Control.Monad.Eff (Eff)
 import Data.Maybe (fromJust)
 import Graphics.Canvas (CANVAS, getCanvasElementById, getContext2D)
 import Graphics.Canvas.Free (putImageData, getImageData, stroke, closePath, lineTo,
+                            bezierCurveTo, quadraticCurveTo,
                             moveTo, beginPath, translate, strokeText, measureText,
                             setFont, rotate, scale, setStrokeStyle, setShadowColor,
                             setShadowOffsetY, setShadowOffsetX, setLineWidth, runGraphics)
@@ -45,3 +46,25 @@ main = do
 
     image <- getImageData 0.0 0.0 600.0 600.0
     putImageData image 0.0 200.0
+
+    beginPath
+    moveTo 10.0 10.0
+    quadraticCurveTo
+      { cpx: 50.0
+      , cpy: 90.0
+      , x: 90.0
+      , y: 10.0
+      }
+    stroke
+
+    beginPath
+    moveTo 0.0 0.0
+    bezierCurveTo
+      { cp1x: 30.0
+      , cp1y: 90.0
+      , cp2x: 70.0
+      , cp2y: 10.0
+      , x: 90.0
+      , y: 90.0
+      }
+    stroke
