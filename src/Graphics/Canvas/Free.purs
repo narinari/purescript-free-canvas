@@ -62,7 +62,8 @@ import Prelude
 import Control.Monad.Eff (Eff)
 import Control.Monad.Free.Trans (FreeT, liftFreeT, hoistFreeT, runFreeT)
 import Data.Coyoneda (Coyoneda, hoistCoyoneda, liftCoyoneda, lowerCoyoneda)
-import Data.Identity (Identity, runIdentity)
+import Data.Identity (Identity)
+import Data.Newtype (unwrap)
 import Graphics.Canvas as Canvas
 
 data GraphicsF more
@@ -252,7 +253,7 @@ runGraphics
   -> Graphics a
   -> Eff (canvas :: Canvas.CANVAS | eff) a
 runGraphics ctx = runFreeT (lowerCoyoneda <<< hoistCoyoneda (interp ctx))
-              <<< hoistFreeT (pure <<< runIdentity)
+              <<< hoistFreeT (pure <<< unwrap)
 
 runGraphicsT
   :: forall a eff
