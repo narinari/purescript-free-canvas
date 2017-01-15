@@ -11,6 +11,7 @@ module Graphics.Canvas.Free
   , setShadowOffsetX
   , setShadowOffsetY
   , setLineCap
+  , setLineJoin
   , setComposite
   , setAlpha
 
@@ -75,6 +76,7 @@ data GraphicsF more
   | SetShadowOffsetX     Number more
   | SetShadowOffsetY     Number more
   | SetLineCap           Canvas.LineCap more
+  | SetLineJoin          Canvas.LineJoin more
   | SetComposite         Canvas.Composite more
   | SetAlpha             Number more
   | BeginPath            more
@@ -141,6 +143,9 @@ setShadowOffsetY n = liftGraphics $ SetShadowOffsetY n unit
 
 setLineCap :: forall m. Monad m => Canvas.LineCap -> GraphicsT m Unit
 setLineCap lc = liftGraphics $ SetLineCap lc unit
+
+setLineJoin :: forall m. Monad m => Canvas.LineJoin -> GraphicsT m Unit
+setLineJoin lj = liftGraphics $ SetLineJoin lj unit
 
 setComposite :: forall m. Monad m => Canvas.Composite -> GraphicsT m Unit
 setComposite c = liftGraphics $ SetComposite c unit
@@ -279,6 +284,8 @@ interp ctx (SetShadowOffsetY n a) =
   const a <$> Canvas.setShadowOffsetY n ctx
 interp ctx (SetLineCap lc a) =
   const a <$> Canvas.setLineCap lc ctx
+interp ctx (SetLineJoin lj a) =
+  const a <$> Canvas.setLineJoin lj ctx
 interp ctx (SetComposite c a) =
   const a <$> Canvas.setGlobalCompositeOperation ctx c
 interp ctx (SetAlpha s a) =
