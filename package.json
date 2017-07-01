@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "clean": "rimraf output && rimraf .pulp-cache",
+    "build": "pulp build -O --skip-entry-point",
+    "test": "pulp build -I test -m Test.Main --to test/index.js"
+  },
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "eslint": "^4.0.1",
+    "jshint": "^2.9.1",
+    "pulp": "^11.0.0",
+    "purescript": "^0.11.0",
+    "purescript-psa": "^0.5.0",
+    "rimraf": "^2.6.0"
+  },
+  "dependencies": {}
+}

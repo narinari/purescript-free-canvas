@@ -19,11 +19,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/paf31/purescript-free-canvas.git"
+    "url": "git://github.com/narinari/purescript-free-canvas.git"
   },
   "dependencies": {
-    "purescript-canvas": "^2.0.0",
-    "purescript-freet": "^2.0.0",
-    "purescript-free": "^3.0.0"
+    "purescript-canvas": "^3.0.0",
+    "purescript-freet": "^3.0.0",
+    "purescript-free": "^4.0.0"
   }
 }
